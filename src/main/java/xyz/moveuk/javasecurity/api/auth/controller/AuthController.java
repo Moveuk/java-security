@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.moveuk.javasecurity.api.auth.model.LoginResponse;
 import xyz.moveuk.javasecurity.api.auth.model.SignUpRequest;
 import xyz.moveuk.javasecurity.api.auth.model.SignUpResponse;
+import xyz.moveuk.javasecurity.api.auth.model.LoginRequest;
 import xyz.moveuk.javasecurity.api.auth.service.UserService;
 
 @RestController
@@ -20,5 +22,10 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<SignUpResponse> signUp(@RequestBody @Valid SignUpRequest request) {
         return ResponseEntity.ok(userService.signUp(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> signUp(@RequestBody @Valid LoginRequest request) {
+        return ResponseEntity.ok(userService.login(request));
     }
 }
