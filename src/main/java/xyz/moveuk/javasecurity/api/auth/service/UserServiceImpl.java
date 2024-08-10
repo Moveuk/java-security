@@ -8,7 +8,7 @@ import xyz.moveuk.javasecurity.api.auth.model.LoginRequest;
 import xyz.moveuk.javasecurity.api.auth.model.LoginResponse;
 import xyz.moveuk.javasecurity.api.auth.model.SignUpRequest;
 import xyz.moveuk.javasecurity.api.auth.model.SignUpResponse;
-import xyz.moveuk.javasecurity.api.jwt.JwtPlugin;
+import xyz.moveuk.javasecurity.api.auth.security.jwt.JwtPlugin;
 import xyz.moveuk.javasecurity.database.entity.User;
 import xyz.moveuk.javasecurity.database.repository.UserRepository;
 

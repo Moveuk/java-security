@@ -1,7 +1,6 @@
-package xyz.moveuk.javasecurity.api.jwt;
+package xyz.moveuk.javasecurity.api.auth.security.jwt;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,6 +27,11 @@ public class JwtPlugin {
         this.issuer = issuer;
         this.secret = secret;
         this.accessTokenExpirationHour = accessTokenExpirationHour;
+    }
+
+    public Jws<Claims> validateToken(String jwt) throws JwtException, IllegalArgumentException {
+        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(jwt);
     }
 
     public String generateAccessToken(String subject, String role) {

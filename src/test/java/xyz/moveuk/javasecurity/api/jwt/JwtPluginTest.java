@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import xyz.moveuk.javasecurity.api.auth.security.jwt.JwtPlugin;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -25,7 +26,7 @@ class JwtPluginTest {
     }
 
     @Test
-    public void testGenerateAccessToken() {
+    void testGenerateAccessToken() {
         //given
         String subject = "testUser";
         String role = "USER";
