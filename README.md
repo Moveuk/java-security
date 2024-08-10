@@ -7,6 +7,8 @@
 
 ## api 명세
 
+[스웨거 링크](http://43.202.197.128:8080/swagger-ui/index.html)
+
 ### 회원가입
 
 #### Request Message
