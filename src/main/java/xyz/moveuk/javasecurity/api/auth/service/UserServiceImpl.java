@@ -1,9 +1,9 @@
 package xyz.moveuk.javasecurity.api.auth.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.moveuk.javasecurity.api.auth.model.LoginRequest;
 import xyz.moveuk.javasecurity.api.auth.model.LoginResponse;
 import xyz.moveuk.javasecurity.api.auth.model.SignUpRequest;
@@ -29,24 +29,28 @@ public class UserServiceImpl implements UserService {
             throw new IllegalStateException("이메일이 이미 존재합니다.");
         }
 
-        User savedUser = userRepository.save(User.builder()
+        User newUser = User.builder()
                 .username(request.username())
                 .password(bCryptPasswordEncoder.encode(request.password()))
                 .nickname(request.nickname())
                 .authority("ROLE_USER")
                 .createdAt(LocalDateTime.now())
-                .build());
+                .build();
+
+        User savedUser = userRepository.save(newUser);
 
         return SignUpResponse.of(savedUser);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public LoginResponse login(LoginRequest request) {
+
         Optional<User> optionalUser = userRepository.findByUsername(request.username());
 
 
         if (optionalUser.isEmpty()
-        || (!optionalUser.get().getUsername().equals(request.username()) || !bCryptPasswordEncoder.matches(request.password(), optionalUser.get().getPassword()))) {
+                || (!optionalUser.get().getUsername().equals(request.username()) || !bCryptPasswordEncoder.matches(request.password(), optionalUser.get().getPassword()))) {
             throw new IllegalStateException("아이디 혹은 비밀번호가 잘못되었습니다.");
         }
 
