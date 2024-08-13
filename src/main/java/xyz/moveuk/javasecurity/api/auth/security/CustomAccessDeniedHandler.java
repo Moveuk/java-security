@@ -20,7 +20,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setCharacterEncoding("UTF-8");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(new ErrorResponse("API 권한 없음!"));
+        String jsonString = objectMapper.writeValueAsString(new ErrorResponse("ACCESS_DENIED","API 권한 없음!"));
         response.getWriter().write(jsonString);
     }
 }

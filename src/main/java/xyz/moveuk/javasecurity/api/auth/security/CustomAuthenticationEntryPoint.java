@@ -20,7 +20,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setCharacterEncoding("UTF-8");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(new ErrorResponse("JWT verification 실패!"));
+        String jsonString = objectMapper.writeValueAsString(new ErrorResponse("UNAUTHORIZED" ,"JWT verification 실패!"));
         response.getWriter().write(jsonString);
     }
 }
