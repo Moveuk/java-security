@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public SignUpResponse signUp(SignUpRequest request) {
         if (userRepository.existsByUsername(request.username())) {
-            throw new IllegalStateException("이메일이 이미 존재합니다.");
+            throw new IllegalArgumentException("이메일이 이미 존재합니다.");
         }
 
         User newUser = User.builder()
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
         if (optionalUser.isEmpty()
                 || (!optionalUser.get().getUsername().equals(request.username()) || !bCryptPasswordEncoder.matches(request.password(), optionalUser.get().getPassword()))) {
-            throw new IllegalStateException("아이디 혹은 비밀번호가 잘못되었습니다.");
+            throw new IllegalArgumentException("아이디 혹은 비밀번호가 잘못되었습니다.");
         }
 
         return new LoginResponse(
